@@ -1,0 +1,29 @@
+CREATE DATABASE IF NOT EXISTS lumiere_salon CHARACTER SET utf8mb4;
+USE lumiere_salon;
+CREATE TABLE IF NOT EXISTS users(
+  id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE, phone VARCHAR(20),
+  password_hash VARCHAR(100) NOT NULL, role ENUM('admin','customer') NOT NULL DEFAULT 'customer',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS categories(
+  id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(80) NOT NULL UNIQUE, description VARCHAR(255));
+CREATE TABLE IF NOT EXISTS services(
+  id INT AUTO_INCREMENT PRIMARY KEY, category_id INT NOT NULL, name VARCHAR(100) NOT NULL,
+  description VARCHAR(500), price DECIMAL(10,2) NOT NULL, duration INT NOT NULL DEFAULT 60, image VARCHAR(500),
+  FOREIGN KEY (category_id) REFERENCES categories(id));
+CREATE TABLE IF NOT EXISTS staff(
+  id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL, specialty VARCHAR(100),
+  phone VARCHAR(20), bio VARCHAR(300), image VARCHAR(500));
+CREATE TABLE IF NOT EXISTS bookings(
+  id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, service_id INT NOT NULL, staff_id INT NULL,
+  booking_date DATE NOT NULL, booking_time TIME NOT NULL,
+  status ENUM('pending','confirmed','completed','cancelled') DEFAULT 'pending',
+  payment_status ENUM('unpaid','paid') DEFAULT 'unpaid', notes VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (service_id) REFERENCES services(id),
+  FOREIGN KEY (staff_id) REFERENCES staff(id) ON DELETE SET NULL);
+CREATE TABLE IF NOT EXISTS payments(
+  id INT AUTO_INCREMENT PRIMARY KEY, booking_id INT NOT NULL, amount DECIMAL(10,2) NOT NULL,
+  card_last4 CHAR(4), txn_ref VARCHAR(30), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE);

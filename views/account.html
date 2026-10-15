@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/style.css"><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><title>My Account | Lumière</title></head><body>
+<div class="dash"><aside class="side"><a class="logo" href="/">Lumière</a><a class="tab on" href="#book">Book a service</a><a class="tab" href="#mine">My bookings</a><a class="tab" href="/">Website</a><button class="btn" id="logout">Log out</button></aside>
+<main class="main"><h2 id="hello">Welcome</h2>
+<section class="box" id="book"><h3>Book an appointment</h3><form id="bf" novalidate><div class="formgrid">
+<div><label for="service_id">Service</label><select id="service_id"></select><span class="err"></span></div>
+<div><label for="staff_id">Stylist (optional)</label><select id="staff_id"><option value="">Any available</option></select><span class="err"></span></div>
+<div><label for="booking_date">Date</label><input id="booking_date" type="date"><span class="err"></span></div>
+<div><label for="booking_time">Time</label><select id="booking_time"></select><span class="err"></span></div></div>
+<label for="notes">Notes (optional)</label><textarea id="notes" rows="2" maxlength="250"></textarea><span class="err"></span>
+<button class="btn" style="width:auto;padding:12px 34px" type="submit">Confirm booking</button></form></section>
+<section class="box" id="mine"><h3>My bookings</h3><div style="overflow-x:auto"><table><thead><tr><th>Service</th><th>Stylist</th><th>When</th><th>Price</th><th>Status</th><th>Payment</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></section></main></div>
+<div class="modal" id="pm"><form class="panel" id="pf" novalidate><h1>Pay securely</h1><p class="sub" id="pinfo"></p>
+<p class="sub" style="font-size:.8rem">Test mode: use card 4242 4242 4242 4242, any future expiry, any CVV. No real money is charged.</p>
+<label for="card">Card number</label><input id="card" inputmode="numeric" maxlength="23" autocomplete="off"><span class="err"></span>
+<div class="formgrid"><div><label for="expiry">Expiry (MM/YY)</label><input id="expiry" maxlength="5" placeholder="08/29"><span class="err"></span></div><div><label for="cvv">CVV</label><input id="cvv" type="password" maxlength="4"><span class="err"></span></div></div>
+<button class="btn" type="submit">Pay now</button><button class="btn dark" type="button" id="pc">Cancel</button></form></div>
+<script src="/js/main.js"></script><script src="/js/account.js"></script></body></html>
